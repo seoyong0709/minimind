@@ -109,11 +109,11 @@ def eval_tokenizer(tokenizer_dir):
     from transformers import AutoTokenizer
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_dir)
     messages = [
-        {"role": "system", "content": "你是一个优秀的聊天机器人，总是给我正确的回应！"},
-        {"role": "user", "content": '你来自哪里？'},
-        {"role": "assistant", "content": '我来自月球'},
-        {"role": "user", "content": '你到底来自哪里？'},
-        {"role": "assistant", "content": '我来自地球'}
+        {"role": "system", "content": "Bạn là một robot trò chuyện xuất sắc, luôn đưa ra cho tôi phản hồi chính xác!"},
+        {"role": "user", "content": "Bạn đến từ đâu?"},
+        {"role": "assistant", "content": "Tôi đến từ Mặt Trăng"},
+        {"role": "user", "content": "Rốt cuộc bạn đến từ đâu?"},
+        {"role": "assistant", "content": "Tôi đến từ Trái Đất"}
     ]
     new_prompt = tokenizer.apply_chat_template(
         messages,
@@ -131,9 +131,8 @@ def eval_tokenizer(tokenizer_dir):
     print('压缩率测试（Chars/Tokens）：')
     test_texts = [
         # 中文样本 (约200字)
-        "人工智能是计算机科学的一个分支，它企图了解智能的实质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机器人、语言识别、图像识别、自然语言处理和专家系统等。人工智能从诞生以来，理论和技术日益成熟，应用领域也不断扩大，可以设想，未来人工智能带来的科技产品，将会是人类智慧的“容器”。人工智能可以对人的意识、思维的信息过程的模拟。人工智能不是人的智能，但能像人那样思考、也可能超过人的智能。",
-        "星际航行是指在星系内甚至星系间的空间中进行的航行。由于宇宙空间极其广阔，传统的化学火箭动力在恒星间航行时显得力不从心。科学家们提出了多种方案，包括离子推进器、核热火箭、甚至是利用反物质作为能源的设想。此外，曲率驱动和虫洞旅行等科幻概念也在理论物理研究中被反复探讨。尽管目前人类的足迹仅限于月球，但随着核聚变技术和材料科学的突破，前往火星乃至更遥远的太阳系边缘将成为可能。",
-        # 英文样本 (约200词/字符)
+        "Trí tuệ nhân tạo là một nhánh của khoa học máy tính, nó nỗ lực tìm hiểu bản chất của trí thông minh và tạo ra một loại máy móc thông minh mới có khả năng phản ứng tương tự như trí thông minh của con người. Các nghiên cứu trong lĩnh vực này bao gồm robot, nhận dạng giọng nói, nhận dạng hình ảnh, xử lý ngôn ngữ tự nhiên và các hệ thống chuyên gia, v.v. Từ khi ra đời đến nay, lý thuyết và công nghệ của trí tuệ nhân tạo ngày càng trở nên chín bố, các lĩnh vực ứng dụng cũng không ngừng mở rộng. Có thể hình dung rằng, các sản phẩm công nghệ do trí tuệ nhân tạo mang lại trong tương lai sẽ là 'vật chứa' trí tuệ của con người. Trí tuệ nhân tạo có thể mô phỏng các quá trình thông tin thuộc về ý thức và tư duy của con người. Trí tuệ nhân tạo không phải là trí thông minh của con người, nhưng nó có thể suy nghĩ như con người và cũng có thể vượt qua trí thông minh của con người.",
+"Du hành liên sao là việc di chuyển trong không gian giữa các ngôi sao, thậm chí giữa các thiên hà. Do không gian vũ trụ cực kỳ bao la, động cơ tên lửa hóa học truyền thống tỏ ra hoàn toàn bất lực khi du hành giữa các hệ sao. Các nhà khoa học đã đưa ra nhiều phương án, bao gồm động cơ đẩy ion, tên lửa nhiệt hạt nhân, hay thậm chí là ý tưởng sử dụng phản vật chất làm nguồn năng lượng. Ngoài ra, các khái niệm viễn tưởng như động cơ bẻ cong không-thời gian (curvature drive) và du hành qua lỗ sâu (wormhole) cũng liên tục được thảo luận trong các nghiên cứu vật lý lý thuyết. Dù hiện tại dấu chân của con người mới chỉ dừng lại ở Mặt Trăng, nhưng với những bước đột phá trong công nghệ nhiệt hạch và khoa học vật liệu, việc đặt chân tới Sao Hỏa hay thậm chí các vùng rìa xa xôi hơn của Hệ Mặt Trời sẽ trở thành hiện thực.",# 英文样本 (约200词/字符)
         "Large language models (LLMs) are a type of artificial intelligence (AI) trained on vast amounts of text data to understand and generate human-like language. These models use deep learning techniques, specifically transformers, to process and predict the next word in a sequence. LLMs like GPT-4, Llama, and Claude have demonstrated remarkable capabilities in coding, translation, and creative writing. However, they also face challenges such as hallucinations, where the model generates factually incorrect information, and the need for significant computational resources.",
         "The development of sustainable energy is crucial for the future of our planet. As climate change continues to impact global weather patterns, transitioning from fossil fuels to renewable sources like solar, wind, and hydroelectric power has become an urgent priority. Innovations in battery storage technology and smart grid management are essential to ensure a reliable energy supply. International cooperation and policy frameworks are also necessary to drive the global shift towards a greener economy and reduce carbon emissions.",
         # 混合样本
