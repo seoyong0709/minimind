@@ -16,41 +16,41 @@ from trainer.trainer_utils import setup_seed, get_model_params, safe_math_eval
 warnings.filterwarnings('ignore')
 
 TOOLS = [
-    {"type": "function", "function": {"name": "calculate_math", "description": "计算数学表达式的结果，支持加减乘除、幂运算、开方等", "parameters": {"type": "object", "properties": {"expression": {"type": "string", "description": "数学表达式，如123+456、2**10、sqrt(144)"}}, "required": ["expression"]}}},
-    {"type": "function", "function": {"name": "get_current_time", "description": "获取当前日期和时间，支持指定时区", "parameters": {"type": "object", "properties": {"timezone": {"type": "string", "description": "时区名称，如Asia/Shanghai、America/New_York", "default": "Asia/Shanghai"}}, "required": []}}},
-    {"type": "function", "function": {"name": "random_number", "description": "生成指定范围内的随机数", "parameters": {"type": "object", "properties": {"min": {"type": "integer", "description": "最小值", "default": 0}, "max": {"type": "integer", "description": "最大值", "default": 100}}, "required": []}}},
-    {"type": "function", "function": {"name": "text_length", "description": "计算文本的字符数和单词数", "parameters": {"type": "object", "properties": {"text": {"type": "string", "description": "要统计的文本"}}, "required": ["text"]}}},
-    {"type": "function", "function": {"name": "unit_converter", "description": "进行单位换算，支持长度、重量、温度等", "parameters": {"type": "object", "properties": {"value": {"type": "number", "description": "要转换的数值"}, "from_unit": {"type": "string", "description": "源单位，如km、miles、kg、pounds、celsius、fahrenheit"}, "to_unit": {"type": "string", "description": "目标单位"}}, "required": ["value", "from_unit", "to_unit"]}}},
-    {"type": "function", "function": {"name": "get_current_weather", "description": "获取指定城市的当前天气信息，包括温度、湿度和天气状况", "parameters": {"type": "object", "properties": {"location": {"type": "string", "description": "城市名称，如北京、上海、New York"}, "unit": {"type": "string", "description": "温度单位，celsius或fahrenheit", "enum": ["celsius", "fahrenheit"], "default": "celsius"}}, "required": ["location"]}}},
-    {"type": "function", "function": {"name": "get_exchange_rate", "description": "查询两种货币之间的实时汇率", "parameters": {"type": "object", "properties": {"from_currency": {"type": "string", "description": "源货币代码，如USD、CNY、EUR"}, "to_currency": {"type": "string", "description": "目标货币代码，如USD、CNY、EUR"}}, "required": ["from_currency", "to_currency"]}}},
-    {"type": "function", "function": {"name": "translate_text", "description": "将文本翻译成目标语言", "parameters": {"type": "object", "properties": {"text": {"type": "string", "description": "要翻译的文本"}, "target_language": {"type": "string", "description": "目标语言，如english、chinese、japanese、french"}}, "required": ["text", "target_language"]}}},
+{"type": "function", "function": {"name": "calculate_math", "description": "Tính kết quả biểu thức toán học, hỗ trợ cộng trừ nhân chia, lũy thừa, căn bậc hai v.v.", "parameters": {"type": "object", "properties": {"expression": {"type": "string", "description": "Biểu thức toán học, ví dụ 123+456, 210, sqrt(144)"}}, "required": ["expression"]}}},
+{"type": "function", "function": {"name": "get_current_time", "description": "Lấy ngày và giờ hiện tại, hỗ trợ chỉ định múi giờ", "parameters": {"type": "object", "properties": {"timezone": {"type": "string", "description": "Tên múi giờ, ví dụ Asia/Shanghai, America/New_York", "default": "Asia/Shanghai"}}, "required": []}}},
+{"type": "function", "function": {"name": "random_number", "description": "Tạo số ngẫu nhiên trong khoảng chỉ định", "parameters": {"type": "object", "properties": {"min": {"type": "integer", "description": "Giá trị nhỏ nhất", "default": 0}, "max": {"type": "integer", "description": "Giá trị lớn nhất", "default": 100}}, "required": []}}},
+{"type": "function", "function": {"name": "text_length", "description": "Tính số ký tự và số từ của văn bản", "parameters": {"type": "object", "properties": {"text": {"type": "string", "description": "Văn bản cần thống kê"}}, "required": ["text"]}}},
+{"type": "function", "function": {"name": "unit_converter", "description": "Thực hiện đổi đơn vị, hỗ trợ chiều dài, khối lượng, nhiệt độ v.v.", "parameters": {"type": "object", "properties": {"value": {"type": "number", "description": "Giá trị cần chuyển đổi"}, "from_unit": {"type": "string", "description": "Đơn vị gốc, ví dụ km, miles, kg, pounds, celsius, fahrenheit"}, "to_unit": {"type": "string", "description": "Đơn vị đích"}}, "required": ["value", "from_unit", "to_unit"]}}},
+{"type": "function", "function": {"name": "get_current_weather", "description": "Lấy thông tin thời tiết hiện tại của thành phố chỉ định, bao gồm nhiệt độ, độ ẩm và tình trạng thời tiết", "parameters": {"type": "object", "properties": {"location": {"type": "string", "description": "Tên thành phố, ví dụ Bắc Kinh, Thượng Hải, New York"}, "unit": {"type": "string", "description": "Đơn vị nhiệt độ, celsius hoặc fahrenheit", "enum": ["celsius", "fahrenheit"], "default": "celsius"}}, "required": ["location"]}}},
+{"type": "function", "function": {"name": "get_exchange_rate", "description": "Tra cứu tỷ giá hối đoái thời gian thực giữa hai loại tiền tệ", "parameters": {"type": "object", "properties": {"from_currency": {"type": "string", "description": "Mã tiền tệ gốc, ví dụ USD, CNY, EUR"}, "to_currency": {"type": "string", "description": "Mã tiền tệ đích, ví dụ USD, CNY, EUR"}}, "required": ["from_currency", "to_currency"]}}},
+{"type": "function", "function": {"name": "translate_text", "description": "Dịch văn bản sang ngôn ngữ đích", "parameters": {"type": "object", "properties": {"text": {"type": "string", "description": "Văn bản cần dịch"}, "target_language": {"type": "string", "description": "Ngôn ngữ đích, ví dụ english, chinese, japanese, french"}}, "required": ["text", "target_language"]}}},
 ]
 
 MOCK_RESULTS = {
-    "calculate_math": lambda args: {"result": str(safe_math_eval(args.get("expression", "0")))},
-    "get_current_time": lambda args: {"datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "timezone": args.get("timezone", "Asia/Shanghai")},
-    "random_number": lambda args: {"result": random.randint(int(args.get("min", 0)), int(args.get("max", 100)))},
-    "text_length": lambda args: {"characters": len(args.get("text", "")), "words": len(args.get("text", "").split())},
-    "unit_converter": lambda args: {"result": round(float(args.get("value", 0)) * 0.621371, 2), "from": f"{args.get('value', 0)} {args.get('from_unit', '')}", "to": args.get("to_unit", "")},
-    "get_current_weather": lambda args: {"city": args.get("location"), "temperature": "22°C", "humidity": "65%", "condition": "晴"},
-    "get_exchange_rate": lambda args: {"from": args.get("from_currency", ""), "to": args.get("to_currency", ""), "rate": 7.15},
-    "translate_text": lambda args: {"translated": "hello world"},
+"calculate_math": lambda args: {"result": str(safe_math_eval(args.get("expression", "0")))},
+"get_current_time": lambda args: {"datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "timezone": args.get("timezone", "Asia/Shanghai")},
+"random_number": lambda args: {"result": random.randint(int(args.get("min", 0)), int(args.get("max", 100)))},
+"text_length": lambda args: {"characters": len(args.get("text", "")), "words": len(args.get("text", "").split())},
+"unit_converter": lambda args: {"result": round(float(args.get("value", 0)) * 0.621371, 2), "from": f"{args.get('value', 0)} {args.get('from_unit', '')}", "to": args.get("to_unit", "")},
+"get_current_weather": lambda args: {"city": args.get("location"), "temperature": "22°C", "humidity": "65%", "condition": "Nắng"},
+"get_exchange_rate": lambda args: {"from": args.get("from_currency", ""), "to": args.get("to_currency", ""), "rate": 7.15},
+"translate_text": lambda args: {"translated": "hello world"},
 }
 
 TOOL_MAP = {t["function"]["name"]: t for t in TOOLS}
 
 def get_tools(names):
-    return [TOOL_MAP[n] for n in names]
+return [TOOL_MAP[n] for n in names]
 
 TEST_CASES = [
-    {"prompt": "帮我算一下 256 乘以 37 等于多少", "tools": ["calculate_math", "get_current_time"]},
-    {"prompt": "现在几点了？", "tools": ["get_current_time", "random_number"]},
-    {"prompt": "帮我把100公里换算成英里", "tools": ["unit_converter", "calculate_math"]},
-    {"prompt": "帮我生成一个1到1000的随机数，然后计算它的平方", "tools": ["random_number", "calculate_math", "text_length"]},
-    {"prompt": "北京今天天气怎么样？", "tools": ["get_current_weather", "get_current_time"]},
-    {"prompt": "查一下美元兑人民币汇率", "tools": ["get_exchange_rate", "get_current_time"]},
-    {"prompt": "把'你好世界'翻译成英文", "tools": ["translate_text", "text_length"]},
-    {"prompt": "What is the weather in Tokyo? Also convert 30 celsius to fahrenheit.", "tools": ["get_current_weather", "unit_converter", "get_current_time"]},
+{"prompt": "Tính giúp tôi 256 nhân với 37 bằng bao nhiêu", "tools": ["calculate_math", "get_current_time"]},
+{"prompt": "Bây giờ là mấy giờ rồi?", "tools": ["get_current_time", "random_number"]},
+{"prompt": "Đổi giúp tôi 100 km sang dặm", "tools": ["unit_converter", "calculate_math"]},
+{"prompt": "Tạo giúp tôi một số ngẫu nhiên từ 1 đến 1000, sau đó tính bình phương của nó", "tools": ["random_number", "calculate_math", "text_length"]},
+{"prompt": "Thời tiết Bắc Kinh hôm nay thế nào?", "tools": ["get_current_weather", "get_current_time"]},
+{"prompt": "Tra cứu tỷ giá USD sang CNY", "tools": ["get_exchange_rate", "get_current_time"]},
+{"prompt": "Dịch '你好世界' sang tiếng Anh", "tools": ["translate_text", "text_length"]},
+{"prompt": "What is the weather in Tokyo? Also convert 30 celsius to fahrenheit.", "tools": ["get_current_weather", "unit_converter", "get_current_time"]},
 ]
 
 
