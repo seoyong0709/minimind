@@ -37,19 +37,20 @@ def rep_penalty(text, n=3, cap=0.5):
 
 # ======== 工具定义 ========
 TOOLS = [
-    {"type": "function", "function": {"name": "calculate_math", "description": "计算数学表达式", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}},
-    {"type": "function", "function": {"name": "unit_converter", "description": "单位换算", "parameters": {"type": "object", "properties": {"value": {"type": "number"}, "from_unit": {"type": "string"}, "to_unit": {"type": "string"}}, "required": ["value", "from_unit", "to_unit"]}}},
-    {"type": "function", "function": {"name": "get_current_weather", "description": "获取天气", "parameters": {"type": "object", "properties": {"location": {"type": "string"}}, "required": ["location"]}}},
-    {"type": "function", "function": {"name": "get_current_time", "description": "获取时间", "parameters": {"type": "object", "properties": {"timezone": {"type": "string", "default": "Asia/Shanghai"}}, "required": []}}},
-    {"type": "function", "function": {"name": "get_exchange_rate", "description": "查询汇率", "parameters": {"type": "object", "properties": {"from_currency": {"type": "string"}, "to_currency": {"type": "string"}}, "required": ["from_currency", "to_currency"]}}},
-    {"type": "function", "function": {"name": "translate_text", "description": "翻译文本", "parameters": {"type": "object", "properties": {"text": {"type": "string"}, "target_language": {"type": "string"}}, "required": ["text", "target_language"]}}},
+{"type": "function", "function": {"name": "calculate_math", "description": "Tính toán biểu thức toán học", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}},
+{"type": "function", "function": {"name": "unit_converter", "description": "Quy đổi đơn vị", "parameters": {"type": "object", "properties": {"value": {"type": "number"}, "from_unit": {"type": "string"}, "to_unit": {"type": "string"}}, "required": ["value", "from_unit", "to_unit"]}}},
+{"type": "function", "function": {"name": "get_current_weather", "description": "Lấy thông tin thời tiết", "parameters": {"type": "object", "properties": {"location": {"type": "string"}}, "required": ["location"]}}},
+{"type": "function", "function": {"name": "get_current_time", "description": "Lấy thời gian hiện tại", "parameters": {"type": "object", "properties": {"timezone": {"type": "string", "default": "Asia/Shanghai"}}, "required": []}}},
+{"type": "function", "function": {"name": "get_exchange_rate", "description": "Tra cứu tỷ giá hối đoái", "parameters": {"type": "object", "properties": {"from_currency": {"type": "string"}, "to_currency": {"type": "string"}}, "required": ["from_currency", "to_currency"]}}},
+{"type": "function", "function": {"name": "translate_text", "description": "Dịch văn bản", "parameters": {"type": "object", "properties": {"text": {"type": "string"}, "target_language": {"type": "string"}}, "required": ["text", "target_language"]}}},
 ]
 
-# ======== 模拟数据 ========
-WEATHER_DATA = {"北京": ("28°C", "晴"), "上海": ("15°C", "多云"), "广州": ("32°C", "闷热"), "深圳": ("30°C", "晴"), "杭州": ("22°C", "阴"), "成都": ("18°C", "小雨"), "武汉": ("25°C", "多云"), "南京": ("20°C", "晴"), "西安": ("16°C", "大风"), "重庆": ("26°C", "阴"), "Tokyo": ("12°C", "晴"), "New York": ("8°C", "多云"), "London": ("5°C", "小雨"), "Paris": ("10°C", "阴"), "Sydney": ("25°C", "晴朗")}
+# ======== Dữ liệu giả lập ========
+
+WEATHER_DATA = {"Bắc Kinh": ("28°C", "Nắng"), "Thượng Hải": ("15°C", "Nhiều mây"), "Quảng Châu": ("32°C", "Oi bức"), "Thâm Quyến": ("30°C", "Nắng"), "Hàng Châu": ("22°C", "U ám"), "Thành Đô": ("18°C", "Mưa nhỏ"), "Vũ Hán": ("25°C", "Nhiều mây"), "Nam Kinh": ("20°C", "Nắng"), "Tây An": ("16°C", "Gió lớn"), "Trùng Khánh": ("26°C", "U ám"), "Tokyo": ("12°C", "Nắng"), "New York": ("8°C", "Nhiều mây"), "London": ("5°C", "Mưa nhỏ"), "Paris": ("10°C", "U ám"), "Sydney": ("25°C", "Nắng đẹp")}
 TIME_DATA = {"Asia/Shanghai": "2025-03-07 14:30:00", "America/New_York": "2025-03-07 01:30:00", "Europe/London": "2025-03-07 06:30:00", "Asia/Tokyo": "2025-03-07 15:30:00", "Europe/Paris": "2025-03-07 07:30:00", "Australia/Sydney": "2025-03-07 17:30:00"}
 EXCHANGE_DATA = {("USD", "CNY"): 7.21, ("EUR", "CNY"): 7.85, ("GBP", "CNY"): 9.12, ("JPY", "CNY"): 0.048, ("USD", "EUR"): 0.92, ("USD", "GBP"): 0.79, ("CNY", "JPY"): 20.83, ("AUD", "CNY"): 4.72}
-TRANSLATE_DATA = {("你好世界", "english"): "Hello World", ("Good morning", "chinese"): "早上好", ("今天天气真好", "english"): "The weather is nice today", ("I love programming", "chinese"): "我喜欢编程", ("机器学习很有趣", "english"): "Machine learning is interesting", ("Happy birthday", "chinese"): "生日快乐"}
+TRANSLATE_DATA = {("Chào thế giới", "english"): "Hello World", ("Good morning", "chinese"): "Buổi sáng tốt lành", ("Hôm nay thời tiết thật đẹp", "english"): "The weather is nice today", ("I love programming", "chinese"): "Tôi thích lập trình", ("Học máy rất thú vị", "english"): "Machine learning is interesting", ("Happy birthday", "chinese"): "Sinh nhật vui vẻ"}
 UNIT_DATA = {"km_miles": 0.621371, "miles_km": 1.60934, "kg_pounds": 2.20462, "pounds_kg": 0.453592, "meters_feet": 3.28084, "feet_meters": 0.3048, "celsius_fahrenheit": 1.8, "fahrenheit_celsius": 0.5556}
 
 # ======== 模拟执行 ========
