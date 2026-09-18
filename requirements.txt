@@ -33,3 +33,5 @@ modelscope==1.37.0
 # peft==0.7.1
 # matplotlib==3.10.0
 # pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+# pip install packaging
+# pip install flash-attn --no-build-isolation
